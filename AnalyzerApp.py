@@ -5,6 +5,7 @@ from io import StringIO
 from datetime import datetime, timedelta
 import pandas as pd
 
+st.set_page_config(layout="wide")
 st.title("Log Analyzer App")
 
 st.markdown("""
@@ -13,8 +14,9 @@ This app takes an Event Viewer CSV file and analyzes it!
 * **Data source:** Your machine's Event Viewer logs exported as CSV
 """)
 
-st.sidebar.header("Filters")
+col_table, col_chart = st.columns([1.5, 1])
 
+st.sidebar.header("Filters")
 search = st.sidebar.text_input("Search for a specific event", "")
 
 filters = ["Last hour", "Last 12 hours", "Last 24 hours", "Last 7 days", "Last 30 days", "All Time"]
@@ -25,7 +27,8 @@ selected_levels = st.sidebar.multiselect("Select Log Levels", levels, default=le
 
 now = datetime.now()
 
-f = st.file_uploader(label="Upload your log file", type="csv")
+f = st.sidebar.file_uploader(label="Upload your log file", type="csv")
+
 total = 0
 counter = {level: 0 for level in selected_levels}
 events = []
@@ -60,18 +63,20 @@ if f is not None:
                 })
             else:
                 continue
-    for level in selected_levels:
-        st.write(f"{level} Events: {counter[level]}")
     df = pd.DataFrame(events)
-    st.dataframe(df, hide_index=True)
-    if total == 0:
-        st.warning("No events found for the selected time range.")
-    else:
-        pie_data = [(label, counter[label]) for label in selected_levels if counter[label] > 0]
-        values = [value for _, value in pie_data]
-        total = sum(values)
-        pie_labels = [f"{label} ({(value / total * 100):.1f}%)" for label, value in pie_data]
-        fig, ax = plt.subplots()
-        ax.pie(values, labels=pie_labels, labeldistance=1.15, startangle=90)
-        ax.axis("equal")
-        st.pyplot(fig)
+    with col_table:
+        for level in selected_levels:
+            st.write(f"{level} Events: {counter[level]}")
+        st.dataframe(df, hide_index=True)
+    with col_chart:
+        if total == 0:
+            st.warning("No events found for the selected time range.")
+        else:
+            pie_data = [(label, counter[label]) for label in selected_levels if counter[label] > 0]
+            values = [value for _, value in pie_data]
+            total = sum(values)
+            pie_labels = [f"{label} ({(value / total * 100):.1f}%)" for label, value in pie_data]
+            fig, ax = plt.subplots()
+            ax.pie(values, labels=pie_labels, labeldistance=1.15, startangle=90)
+            ax.axis("equal")
+            st.pyplot(fig)
