@@ -15,8 +15,6 @@ This app takes an Event Viewer CSV file and analyzes it!
 
 st.sidebar.header("Filters")
 
-search = st.sidebar.text_input("Search for a specific event", "")
-
 filters = ["Last hour", "Last 12 hours", "Last 24 hours", "Last 7 days", "Last 30 days", "All Time"]
 selected_filter = st.sidebar.selectbox("Select A Time Range", filters, index=5)
 
@@ -47,7 +45,7 @@ if f is not None:
         elif selected_filter == "Last 30 days" and timestamp < now - timedelta(days=30):
             continue
         else:
-            if (row[0] in selected_levels) and (search.lower() in row[2].lower() or search.lower() in row[4].lower() or search.lower() in row[5].lower()):
+            if row[0] in selected_levels:
                 total += 1
                 counter[row[0]] += 1
                 events.append({
@@ -55,22 +53,20 @@ if f is not None:
                     "Date and Time": row[1],
                     "Source": row[2],
                     "Event ID": row[3],
-                    "Task Category": row[4],
-                    "Description": row[5]
+                    "Task Category": row[4]
                 })
             else:
                 continue
     for level in selected_levels:
         st.write(f"{level} Events: {counter[level]}")
     df = pd.DataFrame(events)
-    st.dataframe(df, hide_index=True)
+    st.dataframe(df)
     if total == 0:
         st.warning("No events found for the selected time range.")
     else:
-        pie_data = [(label, counter[label]) for label in selected_levels if counter[label] > 0]
-        values = [value for _, value in pie_data]
+        values = [counter[label] for label in selected_levels]
         total = sum(values)
-        pie_labels = [f"{label} ({(value / total * 100):.1f}%)" for label, value in pie_data]
+        pie_labels = [f"{label} ({(value / total * 100):.1f}%)" if total else f"{label} (0.0%)" for label, value in zip(selected_levels, values)]
         fig, ax = plt.subplots()
         ax.pie(values, labels=pie_labels, labeldistance=1.15, startangle=90)
         ax.axis("equal")
