@@ -59,6 +59,8 @@ if f is not None:
                 continue
     for level in selected_levels:
         st.write(f"{level} Events: {counter[level]}")
+    df = pd.DataFrame(events)
+    st.dataframe(df)
     if total == 0:
         st.warning("No events found for the selected time range.")
     else:

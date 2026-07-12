@@ -6,16 +6,16 @@ A Streamlit application for analyzing Windows Event Viewer CSV exports
 
 - Upload Event Viewer CSV files
 - Select timeframe
-- Count total events
-- Count errors, warnings, and informational events
-- Display summary statistics
-- Display a pie chart of event severity
+- Filter levels
+- Display the event information
+- Pie chart of level distribution
 
 ## Requirements
 
 - Python 3.12.3+
 - streamlit
 - matplotlib
+- pandas
 
 ## Run
 
