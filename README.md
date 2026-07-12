@@ -23,6 +23,5 @@ A Streamlit application for analyzing Windows Event Viewer CSV exports
 
 ## Run
 
-'''bash
+```bash
 streamlit run AnalyzerApp.py
-'''
