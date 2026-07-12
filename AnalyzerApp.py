@@ -32,6 +32,8 @@ f = st.sidebar.file_uploader(label="Upload your log file", type="csv")
 total = 0
 counter = {level: 0 for level in selected_levels}
 events = []
+ids = dict()
+sources = dict()
 
 if f is not None:
     text = StringIO(f.getvalue().decode("utf-8"))
@@ -61,6 +63,14 @@ if f is not None:
                     "Task Category": row[4],
                     "Description": row[5]
                 })
+                if row[2] in sources:
+                    sources[row[2]] += 1
+                else:
+                    sources[row[2]] = 1
+                if row[3] in ids:
+                    ids[row[3]] += 1
+                else:
+                    ids[row[3]] = 1
             else:
                 continue
     df = pd.DataFrame(events)
@@ -80,3 +90,22 @@ if f is not None:
             ax.pie(values, labels=pie_labels, labeldistance=1.15, startangle=90)
             ax.axis("equal")
             st.pyplot(fig)
+
+            top_sources = sorted(sources.items(), key=lambda item: item[1], reverse=True)[:5]
+            source_labels = [label for label, _ in top_sources]
+            source_values = [value for _, value in top_sources]
+            source_fig, source_ax = plt.subplots()
+            source_ax.barh(source_labels, source_values)
+            source_ax.invert_yaxis()
+            source_ax.set_xlabel("Count")
+            source_ax.set_title("Top Sources")
+            st.pyplot(source_fig)
+
+            top_ids = sorted(ids.items(), key=lambda item: item[1], reverse=True)[:5]
+            id_labels = [label for label, _ in top_ids]
+            id_values = [value for _, value in top_ids]
+            id_fig, id_ax = plt.subplots()
+            id_ax.bar(id_labels, id_values)
+            id_ax.set_ylabel("Count")
+            id_ax.set_title("Top Event IDs")
+            st.pyplot(id_fig)
