@@ -16,7 +16,10 @@ This app takes an Event Viewer CSV file and analyzes it!
 
 col_table, col_chart = st.columns([1.5, 1])
 
-st.sidebar.header("Filters")
+st.sidebar.header("Data")
+f = st.sidebar.file_uploader(label="Upload your log file", type="csv")
+
+st.sidebar.subheader("Filters")
 search = st.sidebar.text_input("Search for a specific event", "")
 
 filters = ["Last hour", "Last 12 hours", "Last 24 hours", "Last 7 days", "Last 30 days", "All Time"]
@@ -26,8 +29,6 @@ levels = ["Error", "Warning", "Information"]
 selected_levels = st.sidebar.multiselect("Select Log Levels", levels, default=levels)
 
 now = datetime.now()
-
-f = st.sidebar.file_uploader(label="Upload your log file", type="csv")
 
 total = 0
 counter = {level: 0 for level in selected_levels}
