@@ -75,8 +75,10 @@ if f is not None:
                 continue
     df = pd.DataFrame(events)
     with col_table:
-        for level in selected_levels:
-            st.write(f"{level} Events: {counter[level]}")
+        metric_columns = st.columns(len(selected_levels))
+        for metric_column, level in zip(metric_columns, selected_levels):
+            with metric_column:
+                st.metric(label=f"{level} Events", value=counter[level])
         st.dataframe(df, hide_index=True)
     with col_chart:
         if total == 0:
