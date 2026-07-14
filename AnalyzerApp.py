@@ -33,9 +33,7 @@ now = datetime.now()
 total = 0
 counter = {level: 0 for level in selected_levels}
 events = []
-ids = dict()
-sources = dict()
-
+types = dict()
 if f is not None:
     text = StringIO(f.getvalue().decode("utf-8"))
     data = csv.reader(text)
@@ -64,14 +62,11 @@ if f is not None:
                     "Task Category": row[4],
                     "Description": row[5]
                 })
-                if row[2] in sources:
-                    sources[row[2]] += 1
+                thrup = (row[0], row[2], row[3])
+                if thrup in types:
+                    types[thrup]["count"] += 1
                 else:
-                    sources[row[2]] = 1
-                if row[3] in ids:
-                    ids[row[3]] += 1
-                else:
-                    ids[row[3]] = 1
+                    types[thrup] = {"count": 1, "description": row[5]}
             else:
                 continue
     df = pd.DataFrame(events)
@@ -94,7 +89,11 @@ if f is not None:
             ax.axis("equal")
             st.pyplot(fig)
 
-            top_sources = sorted(sources.items(), key=lambda item: item[1], reverse=True)[:5]
+            source_totals = {}
+            for level, source, event_id in types:
+                source_totals[source] = source_totals.get(source, 0) + types[(level, source, event_id)]["count"]
+
+            top_sources = sorted(source_totals.items(), key=lambda item: item[1], reverse=True)[:5]
             source_labels = [label for label, _ in top_sources]
             source_values = [value for _, value in top_sources]
             source_fig, source_ax = plt.subplots()
@@ -104,7 +103,11 @@ if f is not None:
             source_ax.set_title("Top Sources")
             st.pyplot(source_fig)
 
-            top_ids = sorted(ids.items(), key=lambda item: item[1], reverse=True)[:5]
+            id_totals = {}
+            for level, source, event_id in types:
+                id_totals[event_id] = id_totals.get(event_id, 0) + types[(level, source, event_id)]["count"]
+
+            top_ids = sorted(id_totals.items(), key=lambda item: item[1], reverse=True)[:5]
             id_labels = [label for label, _ in top_ids]
             id_values = [value for _, value in top_ids]
             id_fig, id_ax = plt.subplots()
