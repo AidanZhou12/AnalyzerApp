@@ -9,6 +9,7 @@ A Streamlit application for analyzing Windows Event Viewer CSV exports
 - Filter levels
 - Search keywords
 - Display the event information
+- Display AI summary and suggestions
 - Pie chart of level distribution
 - Bar charts of top sources and event IDs
 - Metrics containing event level counts

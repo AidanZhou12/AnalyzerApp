@@ -4,6 +4,9 @@ import csv
 from io import StringIO
 from datetime import datetime, timedelta
 import pandas as pd
+from openai import OpenAI
+
+client = OpenAI()
 
 st.set_page_config(layout="wide")
 st.title("Log Analyzer App")
@@ -76,6 +79,23 @@ if f is not None:
             with metric_column:
                 st.metric(label=f"{level} Events", value=counter[level])
         st.dataframe(df, hide_index=True)
+        if st.button("Generate AI Summary"):
+            promp = {"Error": "", "Warning": "", "Information": ""}
+            for (level, source, id) in types:
+                promp[level] += f"{source}\nEvent ID: {id}\nOccurences: {types[(level, source, id)]['count']}\nDescription: {types[(level, source, id)]['description']}\n\n"
+            response = client.responses.create(
+                model="gpt-5-mini",
+                input=f"""Summarize the following log stats taken from an Event Viewer CSV export:
+                Errors:
+                {promp["Error"]}
+                Warnings:
+                {promp["Warning"]}
+                Information:
+                {promp["Information"]}
+                """,
+                instructions="If there are errors, summarize what went wrong and how to fix them. If there are warnings, give suggestions to avoid them. If there are information events, summarize what happened"
+            )
+            st.text_area("AI Summary", value=response.output_text, height=300, disabled=True)
     with col_chart:
         if total == 0:
             st.warning("No events found for the selected time range.")
