@@ -141,6 +141,6 @@ if f is not None:
                 id_ax.set_title("Top Event IDs")
                 st.pyplot(id_fig)
     except Exception as e:
-        st.error(f"Error processing file: {e}")
+        st.error(f"Error processing file\n{e}")
 else:
     st.info("Please upload a CSV file to analyze.")
