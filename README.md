@@ -1,6 +1,6 @@
 # Streamlit Log Analyzer
 
-A Streamlit application for analyzing Windows Event Viewer CSV exports
+A Streamlit application for analyzing Windows Event Viewer Application or System log CSV exports
 
 ## Features
 

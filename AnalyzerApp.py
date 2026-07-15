@@ -14,7 +14,7 @@ st.title("Tell Me Why")
 st.markdown("""
 An app that takes an Event Viewer CSV file and analyzes it!
 * **Python libraries:** streamlit, matplotlib, csv, pandas, openai
-* **Data source:** Your machine's Event Viewer logs exported as CSV
+* **Data source:** Your machine's Event Viewer Application or System logs exported as CSV
 """)
 
 col_table, col_chart = st.columns([1.5, 1])
