@@ -9,7 +9,9 @@ Just click [this link](https://tellmewhy-hh6c27zz4vaawitfzqdxka.streamlit.app/)
 
 ## Features
 
-- Upload Event Viewer CSV files ![Upload Event Viewer CSV files](Upload.png)
+### Upload Event Viewer CSV files 
+![Upload Event Viewer CSV files](Upload.png)
+
 - Select timeframe ![Select timeframe](Time.png)
 - Filter levels ![Filter levels](Levels.png)
 - Search keywords ![Search keywords](Search.png)
