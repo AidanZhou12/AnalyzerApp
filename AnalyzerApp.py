@@ -43,6 +43,8 @@ if f is not None:
         data = csv.reader(text)
         next(data)
         for row in data:
+            if len(row) < 6:
+                continue
             timestamp = datetime.strptime(row[1], "%m/%d/%Y %I:%M:%S %p")
             if selected_filter == "Last hour" and timestamp < now - timedelta(hours=1):
                 continue
