@@ -45,5 +45,6 @@ Just click [this link](https://tellmewhy-hh6c27zz4vaawitfzqdxka.streamlit.app/)
 - streamlit
 - matplotlib
 - pandas
+- openai
 
 
