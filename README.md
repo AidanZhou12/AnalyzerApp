@@ -1,19 +1,24 @@
-# Streamlit Log Analyzer
+# Tell Me Why
 
-A Streamlit application for analyzing Windows Event Viewer Application or System log CSV exports
+![](Fearless.png)
+Inspired by one of my favorite Taylor Swift songs, _Tell Me Why_, this web app takes CSV files exported from Event Viewer System or Application logs and will tell you why any errors or warnings appeared as well as how to fix them.
+
+## Usage
+
+Just click [this link](https://tellmewhy-hh6c27zz4vaawitfzqdxka.streamlit.app/)
 
 ## Features
 
-- Upload Event Viewer CSV files
-- Select timeframe
-- Filter levels
-- Search keywords
-- Display the event information
-- Display AI summary and suggestions
-- Pie chart of level distribution
-- Bar charts of top sources and event IDs
-- Metrics containing event level counts
-- Ability to download the filtered events to CSV
+- ![Upload Event Viewer CSV files](Upload.png)
+- ![Select timeframe](Time.png)
+- ![Filter levels](Levels.png)
+- ![Search keywords](Search.png)
+- ![Display the event information](Info.png)
+- ![Display AI summary and suggestions](AI.png)
+- ![Pie chart of level distribution](Pie.png)
+- ![Bar charts of top sources and event IDs](Charts.png)
+- ![Metrics containing event level counts](Metrics.png)
+- ![Download the filtered events to CSV](Download.png)
 
 ## Requirements
 
@@ -22,7 +27,4 @@ A Streamlit application for analyzing Windows Event Viewer Application or System
 - matplotlib
 - pandas
 
-## Run
 
-```bash
-streamlit run AnalyzerApp.py
