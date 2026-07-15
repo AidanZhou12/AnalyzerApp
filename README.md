@@ -1,7 +1,7 @@
 # Tell Me Why
 
 ![](Fearless.png)  
-Inspired by one of my favorite Taylor Swift songs, _Tell Me Why_, this web app takes CSV files exported from Event Viewer System or Application logs and will tell you why any errors or warnings appeared as well as how to fix them.
+Inspired by one of my favorite Taylor Swift songs, _Tell Me Why_, this web app I built to practice Python, data analysis, AI, and Git takes CSV files exported from Event Viewer System or Application logs and will tell you why any errors or warnings appeared as well as how to fix them.
 
 ## Usage
 
