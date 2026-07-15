@@ -109,7 +109,8 @@ if f is not None:
                 total = sum(values)
                 pie_labels = [f"{label} ({(value / total * 100):.1f}%)" for label, value in pie_data]
                 fig, ax = plt.subplots()
-                ax.pie(values, labels=pie_labels, labeldistance=1.15, startangle=90)
+                wedges, _ = ax.pie(values, startangle=90)
+                ax.legend(wedges, pie_labels, title="Levels", loc="center left", bbox_to_anchor=(1, 0.5))
                 ax.axis("equal")
                 st.pyplot(fig)
 
