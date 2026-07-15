@@ -39,7 +39,7 @@ events = []
 types = dict()
 if f is not None:
     try:
-        text = StringIO(f.getvalue().decode("utf-8"))
+        text = StringIO(f.getvalue().decode("utf-8"), newline='')
         data = csv.reader(text)
         next(data)
         for row in data:
