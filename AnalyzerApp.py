@@ -5,7 +5,6 @@ from io import StringIO
 from datetime import datetime, timedelta
 import pandas as pd
 from openai import OpenAI
-import time
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -82,24 +81,23 @@ if f is not None:
                     st.metric(label=f"{level} Events", value=counter[level])
             st.dataframe(df, hide_index=True)
             if st.button("Generate AI Summary"):
-                with st.spinner("Generating summary..."):
-                    time.sleep(12)
                 promp = {"Error": "", "Warning": "", "Information": ""}
                 for (level, source, id) in types:
                     promp[level] += f"{source}\nEvent ID: {id}\nOccurences: {types[(level, source, id)]['count']}\nDescription: {types[(level, source, id)]['description']}\n\n"
-                response = client.responses.create(
-                    model="gpt-5-mini",
-                    input=f"""Summarize the following log stats taken from an Event Viewer CSV export:
-                    Errors:
-                    {promp["Error"]}
-                    Warnings:
-                    {promp["Warning"]}
-                    Information:
-                    {promp["Information"]}
-                    """,
-                    instructions="If there are errors, summarize what went wrong and how to fix them. If there are warnings, give suggestions to avoid them. If there are information events, summarize what happened"
-                )
-                st.text_area("AI Summary", value=response.output_text, height=300, disabled=True)
+                with st.spinner("Generating AI Summary..."):
+                    response = client.responses.create(
+                        model="gpt-5-mini",
+                        input=f"""Summarize the following log stats taken from an Event Viewer CSV export:
+                        Errors:
+                        {promp["Error"]}
+                        Warnings:
+                        {promp["Warning"]}
+                        Information:
+                        {promp["Information"]}
+                        """,
+                        instructions="If there are errors, summarize what went wrong and how to fix them. If there are warnings, give suggestions to avoid them. If there are information events, summarize what happened"
+                    )
+                    st.text_area("AI Summary", value=response.output_text, height=300, disabled=True)
         with col_chart:
             if total == 0:
                 st.warning("No events found for the selected time range.")
