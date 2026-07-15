@@ -9,11 +9,11 @@ from openai import OpenAI
 client = OpenAI()
 
 st.set_page_config(layout="wide")
-st.title("Log Analyzer App")
+st.title("Tell Me Why")
 
 st.markdown("""
-This app takes an Event Viewer CSV file and analyzes it!
-* **Python libraries:** streamlit, matplotlib, csv
+An app that takes an Event Viewer CSV file and analyzes it!
+* **Python libraries:** streamlit, matplotlib, csv, pandas, openai
 * **Data source:** Your machine's Event Viewer logs exported as CSV
 """)
 
