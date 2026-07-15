@@ -12,15 +12,32 @@ Just click [this link](https://tellmewhy-hh6c27zz4vaawitfzqdxka.streamlit.app/)
 ### Upload Event Viewer CSV files 
 ![Upload Event Viewer CSV files](Upload.png)
 
-- Select timeframe ![Select timeframe](Time.png)
-- Filter levels ![Filter levels](Levels.png)
-- Search keywords ![Search keywords](Search.png)
-- Display the event information ![Display the event information](Info.png)
-- Display AI summary and suggestions ![Display AI summary and suggestions](AI.png)
-- Pie chart of level distribution ![Pie chart of level distribution](Pie.png)
-- Bar charts of top sources and event IDs ![Bar charts of top sources and event IDs](Charts.png)
-- Metrics containing event level counts ![Metrics containing event level counts](Metrics.png)
-- Download the filtered events to CSV ![Download the filtered events to CSV](Download.png)
+### Select timeframe 
+![Select timeframe](Time.png)
+
+### Filter levels 
+![Filter levels](Levels.png)
+
+### Search keywords 
+![Search keywords](Search.png)
+
+### Display the event information 
+![Display the event information](Info.png)
+
+### Display AI summary and suggestions 
+![Display AI summary and suggestions](AI.png)
+
+### Pie chart of level distribution 
+![Pie chart of level distribution](Pie.png)
+
+### Bar charts of top sources and event IDs 
+![Bar charts of top sources and event IDs](Charts.png)
+
+### Metrics containing event level counts 
+![Metrics containing event level counts](Metrics.png)
+
+### Download the filtered events to CSV 
+![Download the filtered events to CSV](Download.png)
 
 ## Requirements
 
