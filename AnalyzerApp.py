@@ -97,7 +97,7 @@ if f is not None:
                         Information:
                         {promp["Information"]}
                         """,
-                        instructions="If there are errors, summarize what went wrong and how to fix them. If there are warnings, give suggestions to avoid them. If there are information events, summarize what happened"
+                        instructions="If there are errors, summarize what went wrong and how to fix them. If there are warnings, give suggestions to avoid them. If there are information events, summarize what happened. Do not offer to do anything for the user, just summarize the events and give suggestions if needed. If there are no events, say that there are no events to summarize."
                     )
                     st.text_area("AI Summary", value=response.output_text, height=300, disabled=True)
         with col_chart:
